@@ -17,4 +17,6 @@ packer.startup(function(use)
     use 'hrsh7th/cmp-nvim-lsp' -- LSP source for nvim-cmp
     use 'L3MON4D3/LuaSnip'
     use 'mfussenegger/nvim-lint'
+    use 'tpope/vim-fugitive'
+    use 'ThePrimeagen/harpoon'
 end)
