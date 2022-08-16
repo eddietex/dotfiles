@@ -7,8 +7,9 @@ vim.opt.number=true
 vim.opt.relativenumber=true
 
 vim.cmd 'colorscheme gruvbox'
-vim.cmd 'highlight Normal ctermbg=none'
-vim.cmd 'highlight NonText ctermbg=none'
+vim.opt.background='dark'
+-- vim.cmd 'highlight Normal ctermbg=none'
+-- vim.cmd 'highlight NonText ctermbg=none'
 
 vim.opt.guifont='Menlo Regular:h15'
 

@@ -9,13 +9,6 @@ vim.api.nvim_set_keymap(
 --
 vim.api.nvim_set_keymap(
   "n",
-  "<leader>jj",
-  "<cmd>lua require('harpoon.ui').nav_file(1)<cr>)",
-  { noremap = true }
- )
-
-vim.api.nvim_set_keymap(
-  "n",
   "<leader>hw",
   "<cmd>lua require('harpoon.ui').toggle_quick_menu()<cr>)",
   { noremap = true }
@@ -27,6 +20,14 @@ vim.api.nvim_set_keymap(
   "<cmd>lua require('harpoon.mark').add_file()<cr>)",
   { noremap = true }
  )
+
+vim.api.nvim_set_keymap(
+  "n",
+  "<leader>jj",
+  "<cmd>lua require('harpoon.ui').nav_file(1)<cr>)",
+  { noremap = true }
+ )
+
 
 vim.api.nvim_set_keymap(
   "n",
