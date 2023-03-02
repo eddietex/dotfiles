@@ -29,29 +29,8 @@ local set_mappings = function (bufnr)
 end
 
 local get_on_attach = function(filetype)
-    local maybe_setup_linter = function () end
-    if filetype == 'typescript' then
-        maybe_setup_linter = function ()
-            local eslint = require('lint')
-            eslint.linters_by_ft = {
-              typescript = {'eslint'},
-              typescriptreact = {'eslint'},
-              javascript = {'eslint'},
-              javascriptreact = {'eslint'}
-            }
-
-            vim.api.nvim_create_autocmd({ "BufWritePost", "BufEnter" }, {
-                pattern = {"*.ts", "*.tsx", "*.js", "*.jsx"},
-                callback = function()
-                    eslint.try_lint()
-                end,
-            })
-        end
-    end
-
     return function(client, bufnr)
         set_mappings(bufnr)
-        maybe_setup_linter()
     end
 end
 
@@ -68,7 +47,7 @@ require('lspconfig')['tsserver'].setup{
 }
 
 -- Lua
-require'lspconfig'.sumneko_lua.setup {
+require'lspconfig'.lua_ls.setup {
   settings = {
     Lua = {
       runtime = {

@@ -8,6 +8,13 @@ vim.api.nvim_set_keymap(
 vim.api.nvim_set_keymap(
   "n",
   "<leader>fg",
+  "<cmd>Telescope git_files<cr>",
+  { noremap = true }
+ )
+
+vim.api.nvim_set_keymap(
+  "n",
+  "<leader>gr",
   "<cmd>Telescope live_grep<cr>",
   { noremap = true }
  )

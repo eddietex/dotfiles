@@ -5,6 +5,15 @@ vim.api.nvim_set_keymap(
   { noremap = true }
  )
 
+vim.api.nvim_set_keymap(
+  "n",
+  "<leader>y",
+  "\"*y",
+  { noremap = true }
+ )
+
+ vim.api.nvim_set_keymap("n", "<leader>s", [[:%s/\<<C-r><C-w>\>/<C-r><C-w>/gI<Left><Left><Left>]], { noremap = true })
+
 -- harpoon
 --
 vim.api.nvim_set_keymap(

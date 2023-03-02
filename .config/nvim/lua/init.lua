@@ -5,11 +5,10 @@ vim.opt.expandtab=true
 vim.opt.ruler=true
 vim.opt.number=true
 vim.opt.relativenumber=true
+vim.opt.swapfile = false
 
-vim.cmd 'colorscheme gruvbox'
+vim.cmd 'colorscheme tokyonight'
 vim.opt.background='dark'
--- vim.cmd 'highlight Normal ctermbg=none'
--- vim.cmd 'highlight NonText ctermbg=none'
 
 vim.opt.guifont='Menlo Regular:h15'
 
@@ -20,5 +19,6 @@ require('keymap')
 require('telescope')
 require('autocomplete')
 require('lsp')
--- require('linter')
 require('prettier')
+require('null-ls-config')
+require('treesitter')
