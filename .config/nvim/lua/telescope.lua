@@ -33,3 +33,10 @@ vim.api.nvim_set_keymap(
   { noremap = true }
  )
 
+vim.api.nvim_set_keymap(
+  "n",
+  "<leader>fr",
+  "<cmd>Telescope lsp_references<cr>",
+  { noremap = true }
+ )
+

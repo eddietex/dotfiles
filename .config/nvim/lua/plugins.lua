@@ -8,7 +8,7 @@ packer.startup(function(use)
     use 'folke/tokyonight.nvim'
     use 'nvim-lua/plenary.nvim'
     use {
-        'nvim-telescope/telescope.nvim', tag = '0.1.0',
+        'nvim-telescope/telescope.nvim', tag = '0.1.8',
         requires = { { 'nvim-lua/plenary.nvim' } }
     }
     use 'neovim/nvim-lspconfig'
@@ -24,10 +24,11 @@ packer.startup(function(use)
     }
     use({
         "jose-elias-alvarez/null-ls.nvim",
-        config = function()
-            local null_ls = require("null-ls")
-            null_ls.setup()
-        end,
         requires = { "nvim-lua/plenary.nvim" },
     })
+
+    use {
+        'nvim-lualine/lualine.nvim',
+        requires = { 'kyazdani42/nvim-web-devicons', opt = true }
+    }
 end)

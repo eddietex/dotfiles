@@ -25,7 +25,8 @@ local set_mappings = function (bufnr)
       vim.keymap.set('n', '<space>rn', vim.lsp.buf.rename, bufopts)
       vim.keymap.set('n', '<space>ca', vim.lsp.buf.code_action, bufopts)
       vim.keymap.set('n', 'gr', vim.lsp.buf.references, bufopts)
-      vim.keymap.set('n', '<space>f', vim.lsp.buf.formatting, bufopts)
+      vim.keymap.set('n', '<space>f', function() vim.lsp.buf.format({ async = true }) end, bufopts)
+
 end
 
 local get_on_attach = function(filetype)
@@ -41,9 +42,15 @@ local lsp_flags = {
 
 -- Typescript
 
-require('lspconfig')['tsserver'].setup{
+require'lspconfig'.ts_ls.setup {
     on_attach = get_on_attach('typescript'),
     flags = lsp_flags,
+    -- this doesnt seem to be working. play with it
+    settings = {
+        preferences = {
+            importModuleSpecifier = 'non-relative',
+        }
+    }
 }
 
 -- Lua
