@@ -1,5 +1,23 @@
-local packer = require('packer')
-packer.startup(function(use)
+-- Auto-install packer if it's not already installed
+local ensure_packer = function()
+  local fn = vim.fn
+  local install_path = fn.stdpath('data') .. '/site/pack/packer/start/packer.nvim'
+  if fn.empty(fn.glob(install_path)) > 0 then
+    fn.system({ 'git', 'clone', '--depth', '1',
+      'https://github.com/wbthomason/packer.nvim', install_path })
+    vim.cmd [[packadd packer.nvim]]
+    return true
+  end
+  return false
+end
+
+local packer_bootstrap = ensure_packer()
+
+-- Load packer
+vim.cmd [[packadd packer.nvim]]
+
+-- Plugin declarations
+return require('packer').startup(function(use)
     use 'wbthomason/packer.nvim'
     use 'pangloss/vim-javascript'
     use 'leafgarland/typescript-vim'
@@ -31,4 +49,10 @@ packer.startup(function(use)
         'nvim-lualine/lualine.nvim',
         requires = { 'kyazdani42/nvim-web-devicons', opt = true }
     }
+
+  -- Automatically run :PackerSync after cloning packer.nvim
+  if packer_bootstrap then
+    require('packer').sync()
+  end
 end)
+
