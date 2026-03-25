@@ -14,6 +14,13 @@ vim.api.nvim_set_keymap(
 
 vim.api.nvim_set_keymap(
   "n",
+  "<leader>fc",
+  "<cmd>Telescope resume<cr>",
+  { noremap = true }
+ )
+
+vim.api.nvim_set_keymap(
+  "n",
   "<leader>gr",
   "<cmd>Telescope live_grep<cr>",
   { noremap = true }

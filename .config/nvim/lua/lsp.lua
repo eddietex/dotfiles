@@ -78,3 +78,10 @@ require'lspconfig'.lua_ls.setup {
   on_attach = get_on_attach('lua'),
 }
 
+-- Swift
+require'lspconfig'.sourcekit.setup {
+  cmd = { "xcrun", "sourcekit-lsp" },
+  on_attach = get_on_attach('swift'),
+  flags = lsp_flags,
+}
+
