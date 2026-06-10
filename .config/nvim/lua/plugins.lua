@@ -26,7 +26,7 @@ return require('packer').startup(function(use)
     use 'folke/tokyonight.nvim'
     use 'nvim-lua/plenary.nvim'
     use {
-        'nvim-telescope/telescope.nvim', tag = '0.1.8',
+        'nvim-telescope/telescope.nvim', tag = 'v0.2.1',
         requires = { { 'nvim-lua/plenary.nvim' } }
     }
     use 'neovim/nvim-lspconfig'
@@ -56,4 +56,3 @@ return require('packer').startup(function(use)
     require('packer').sync()
   end
 end)
-

@@ -45,7 +45,7 @@ capabilities = require('cmp_nvim_lsp').default_capabilities(capabilities)
 
 -- Typescript
 
-require'lspconfig'.ts_ls.setup {
+vim.lsp.config('ts_ls', {
     on_attach = get_on_attach('typescript'),
     flags = lsp_flags,
     capabilities = capabilities,
@@ -55,14 +55,16 @@ require'lspconfig'.ts_ls.setup {
             importModuleSpecifier = 'non-relative',
         }
     }
-}
+})
+vim.lsp.enable('ts_ls')
 
 -- Python
-require'lspconfig'.pyright.setup {
+vim.lsp.config('pyright', {
     on_attach = get_on_attach('python'),
     flags = lsp_flags,
     capabilities = capabilities,
-}
+})
+vim.lsp.enable('pyright')
 
 -- Java
 local jdtls_java = '/opt/homebrew/opt/openjdk/bin/java'
@@ -71,15 +73,16 @@ if vim.fn.executable(jdtls_java) == 1 then
     jdtls_cmd = { 'jdtls', '--java-executable', jdtls_java }
 end
 
-require'lspconfig'.jdtls.setup {
+vim.lsp.config('jdtls', {
     cmd = jdtls_cmd,
     on_attach = get_on_attach('java'),
     flags = lsp_flags,
     capabilities = capabilities,
-}
+})
+vim.lsp.enable('jdtls')
 
 -- Lua
-require'lspconfig'.lua_ls.setup {
+vim.lsp.config('lua_ls', {
   capabilities = capabilities,
   settings = {
     Lua = {
@@ -102,12 +105,14 @@ require'lspconfig'.lua_ls.setup {
     },
   },
   on_attach = get_on_attach('lua'),
-}
+})
+vim.lsp.enable('lua_ls')
 
 -- Swift
-require'lspconfig'.sourcekit.setup {
+vim.lsp.config('sourcekit', {
   cmd = { "xcrun", "sourcekit-lsp" },
   on_attach = get_on_attach('swift'),
   flags = lsp_flags,
   capabilities = capabilities,
-}
+})
+vim.lsp.enable('sourcekit')
