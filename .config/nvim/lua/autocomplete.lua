@@ -1,15 +1,3 @@
-local capabilities = vim.lsp.protocol.make_client_capabilities()
-capabilities = require('cmp_nvim_lsp').default_capabilities(capabilities)
-
-local lspconfig = require('lspconfig')
-
-local servers = { 'ts_ls', 'sourcekit' }
-for _, lsp in ipairs(servers) do
-  lspconfig[lsp].setup {
-    capabilities = capabilities,
-  }
-end
-
 local cmp = require 'cmp'
 if cmp ~= nil then
     cmp.setup {

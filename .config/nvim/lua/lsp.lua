@@ -40,11 +40,15 @@ local lsp_flags = {
   debounce_text_changes = 150,
 }
 
+local capabilities = vim.lsp.protocol.make_client_capabilities()
+capabilities = require('cmp_nvim_lsp').default_capabilities(capabilities)
+
 -- Typescript
 
 require'lspconfig'.ts_ls.setup {
     on_attach = get_on_attach('typescript'),
     flags = lsp_flags,
+    capabilities = capabilities,
     -- this doesnt seem to be working. play with it
     settings = {
         preferences = {
@@ -53,8 +57,16 @@ require'lspconfig'.ts_ls.setup {
     }
 }
 
+-- Python
+require'lspconfig'.pyright.setup {
+    on_attach = get_on_attach('python'),
+    flags = lsp_flags,
+    capabilities = capabilities,
+}
+
 -- Lua
 require'lspconfig'.lua_ls.setup {
+  capabilities = capabilities,
   settings = {
     Lua = {
       runtime = {
@@ -83,5 +95,5 @@ require'lspconfig'.sourcekit.setup {
   cmd = { "xcrun", "sourcekit-lsp" },
   on_attach = get_on_attach('swift'),
   flags = lsp_flags,
+  capabilities = capabilities,
 }
-
