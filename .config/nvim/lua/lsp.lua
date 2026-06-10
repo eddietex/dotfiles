@@ -64,6 +64,20 @@ require'lspconfig'.pyright.setup {
     capabilities = capabilities,
 }
 
+-- Java
+local jdtls_java = '/opt/homebrew/opt/openjdk/bin/java'
+local jdtls_cmd = { 'jdtls' }
+if vim.fn.executable(jdtls_java) == 1 then
+    jdtls_cmd = { 'jdtls', '--java-executable', jdtls_java }
+end
+
+require'lspconfig'.jdtls.setup {
+    cmd = jdtls_cmd,
+    on_attach = get_on_attach('java'),
+    flags = lsp_flags,
+    capabilities = capabilities,
+}
+
 -- Lua
 require'lspconfig'.lua_ls.setup {
   capabilities = capabilities,
