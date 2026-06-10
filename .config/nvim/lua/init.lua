@@ -1,3 +1,5 @@
+vim.g.mapleader=' '
+
 require('plugins')
 
 vim.opt.tabstop=4
@@ -14,13 +16,6 @@ vim.opt.background='dark'
 
 vim.opt.guifont='Menlo Regular:h15'
 
-vim.g.mapleader=' '
-
 require('keymap')
 require('telescope')
-require('autocomplete')
-require('lsp')
 require('prettier')
-require('none-ls-config')
-require('treesitter')
-require('lualine-setup')

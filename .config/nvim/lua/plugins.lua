@@ -1,58 +1,71 @@
--- Auto-install packer if it's not already installed
-local ensure_packer = function()
-  local fn = vim.fn
-  local install_path = fn.stdpath('data') .. '/site/pack/packer/start/packer.nvim'
-  if fn.empty(fn.glob(install_path)) > 0 then
-    fn.system({ 'git', 'clone', '--depth', '1',
-      'https://github.com/wbthomason/packer.nvim', install_path })
-    vim.cmd [[packadd packer.nvim]]
-    return true
-  end
-  return false
+local lazypath = vim.fn.stdpath('data') .. '/lazy/lazy.nvim'
+if not vim.uv.fs_stat(lazypath) then
+  vim.fn.system({
+    'git',
+    'clone',
+    '--filter=blob:none',
+    '--branch=stable',
+    'https://github.com/folke/lazy.nvim.git',
+    lazypath,
+  })
 end
 
-local packer_bootstrap = ensure_packer()
+vim.opt.rtp:prepend(lazypath)
 
--- Load packer
-vim.cmd [[packadd packer.nvim]]
-
--- Plugin declarations
-return require('packer').startup(function(use)
-    use 'wbthomason/packer.nvim'
-    use 'pangloss/vim-javascript'
-    use 'leafgarland/typescript-vim'
-    use 'peitalin/vim-jsx-typescript'
-    use 'airblade/vim-gitgutter'
-    use 'folke/tokyonight.nvim'
-    use 'nvim-lua/plenary.nvim'
-    use {
-        'nvim-telescope/telescope.nvim', tag = 'v0.2.1',
-        requires = { { 'nvim-lua/plenary.nvim' } }
-    }
-    use 'neovim/nvim-lspconfig'
-    use 'hrsh7th/nvim-cmp' -- Autocompletion plugin
-    use 'hrsh7th/cmp-nvim-lsp' -- LSP source for nvim-cmp
-    use 'L3MON4D3/LuaSnip'
-    -- use 'mfussenegger/nvim-lint'
-    use 'tpope/vim-fugitive'
-    use 'ThePrimeagen/harpoon'
-    use {
-        'nvim-treesitter/nvim-treesitter',
-        run = ':TSUpdate'
-    }
-
-    use {
-        'nvimtools/none-ls.nvim',
-        requires = { 'nvimtools/none-ls-extras.nvim' }
-    }
-
-    use {
-        'nvim-lualine/lualine.nvim',
-        requires = { 'kyazdani42/nvim-web-devicons' }
-    }
-
-  -- Automatically run :PackerSync after cloning packer.nvim
-  if packer_bootstrap then
-    require('packer').sync()
-  end
-end)
+require('lazy').setup({
+  spec = {
+    { 'pangloss/vim-javascript' },
+    { 'leafgarland/typescript-vim' },
+    { 'peitalin/vim-jsx-typescript' },
+    { 'airblade/vim-gitgutter' },
+    { 'folke/tokyonight.nvim', priority = 1000 },
+    { 'nvim-lua/plenary.nvim' },
+    {
+      'nvim-telescope/telescope.nvim',
+      tag = 'v0.2.1',
+      dependencies = { 'nvim-lua/plenary.nvim' },
+    },
+    {
+      'neovim/nvim-lspconfig',
+      dependencies = { 'hrsh7th/cmp-nvim-lsp' },
+      config = function()
+        require('lsp')
+      end,
+    },
+    {
+      'hrsh7th/nvim-cmp',
+      config = function()
+        require('autocomplete')
+      end,
+    },
+    { 'hrsh7th/cmp-nvim-lsp' },
+    { 'L3MON4D3/LuaSnip' },
+    { 'tpope/vim-fugitive' },
+    { 'ThePrimeagen/harpoon' },
+    {
+      'nvim-treesitter/nvim-treesitter',
+      build = ':TSUpdate',
+      config = function()
+        require('treesitter')
+      end,
+    },
+    {
+      'nvimtools/none-ls.nvim',
+      dependencies = { 'nvimtools/none-ls-extras.nvim' },
+      config = function()
+        require('none-ls-config')
+      end,
+    },
+    {
+      'nvim-lualine/lualine.nvim',
+      dependencies = { 'kyazdani42/nvim-web-devicons' },
+      config = function()
+        require('lualine-setup')
+      end,
+    },
+  },
+  defaults = {
+    lazy = false,
+  },
+  lockfile = vim.fn.stdpath('config') .. '/lazy-lock.json',
+})

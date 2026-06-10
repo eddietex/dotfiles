@@ -1,4 +1,4 @@
-require'nvim-treesitter.configs'.setup {
+require('nvim-treesitter').setup {
   -- A list of parser names, or "all" (the four listed parsers should always be installed)
   ensure_installed = { "lua", "typescript", "tsx", "javascript", "json", "vimdoc", "swift", "python", "java" },
 
@@ -40,6 +40,3 @@ require'nvim-treesitter.configs'.setup {
     additional_vim_regex_highlighting = false,
   },
 }
-
-local parser_config = require "nvim-treesitter.parsers".get_parser_configs()
-parser_config.tsx.filetype_to_parsername = { "javascript", "typescript.tsx" }
