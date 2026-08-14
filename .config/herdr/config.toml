@@ -1,0 +1,23 @@
+onboarding = false
+
+[ui.toast]
+delivery = "system"
+
+[keys]
+
+# navigation
+last_pane = "prefix+shift+l"
+
+# workspace
+navigate_workspace_up = "k"
+navigate_workspace_down = "j"
+
+# agents
+focus_agent = "prefix+ctrl+1..9"
+
+[theme]
+name = "tokyo-night"
+auto_switch = false
+
+[ui]
+show_agent_labels_on_pane_borders = false
