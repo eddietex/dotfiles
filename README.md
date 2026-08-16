@@ -79,3 +79,24 @@ Finally, configure the repository to hide untracked files:
 ```bash
 config config --local status.showUntrackedFiles no
 ```
+
+## Oh My Zsh public/private boundary
+
+The tracked `.zshrc` contains only the portable Oh My Zsh bootstrap: the external
+`~/.oh-my-zsh` checkout, the `simple` theme, the `git` plugin, and the optional
+private hook. Keep workstation-specific aliases, PATH/SDK/language setup, tool
+initialization, credentials, and other machine state in untracked
+`~/.zshrc.local` with mode `600`. Never commit or publish credential values.
+
+Oh My Zsh and custom completion state remain an external checkout; they are not
+vendored into this repository. Installing, updating, and pinning its version is a
+separate follow-up concern.
+
+Run the bounded integration check from the home worktree:
+
+```bash
+~/scripts/verify-oh-my-zsh-split.sh
+```
+
+It exercises both startup paths, the local/private boundary, and clean/dirty Git
+prompt indicators without printing secret values or mutating the dotfiles index.
