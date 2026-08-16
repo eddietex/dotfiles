@@ -12,6 +12,7 @@ set -uo pipefail
 
 HOME_DIR=${HOME:?HOME must be set}
 GIT_DIR="$HOME_DIR/.cfg"
+OH_MY_ZSH_INSTALL_URL="https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh"
 
 die() {
   printf 'bootstrap.sh: %s\n' "$1" >&2
@@ -25,6 +26,17 @@ git_config() {
 require_checkout() {
   [ -d "$GIT_DIR" ] \
     || die "$GIT_DIR is missing; run the bare-repo clone/checkout from README.md first"
+}
+
+install_oh_my_zsh() {
+  echo "==> oh-my-zsh"
+
+  if [ -d "$HOME_DIR/.oh-my-zsh" ]; then
+    return 0
+  fi
+
+  KEEP_ZSHRC=yes CHSH=no RUNZSH=no sh -c "$(curl -fsSL "$OH_MY_ZSH_INSTALL_URL")" "" --unattended \
+    || die "oh-my-zsh install failed"
 }
 
 apply_git_config_fixups() {
@@ -50,6 +62,7 @@ fix_zshrc_local_permissions() {
 
 main() {
   require_checkout
+  install_oh_my_zsh
   apply_git_config_fixups
   fix_zshrc_local_permissions
   echo "bootstrap.sh: done"
