@@ -13,9 +13,15 @@ set -uo pipefail
 HOME_DIR=${HOME:?HOME must be set}
 GIT_DIR="$HOME_DIR/.cfg"
 OH_MY_ZSH_INSTALL_URL="https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh"
+HOMEBREW_INSTALL_URL="https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh"
+BREWFILE="$HOME_DIR/Brewfile"
+
+warn() {
+  printf 'bootstrap.sh: %s\n' "$1" >&2
+}
 
 die() {
-  printf 'bootstrap.sh: %s\n' "$1" >&2
+  warn "$1"
   exit 1
 }
 
@@ -37,6 +43,36 @@ install_oh_my_zsh() {
 
   KEEP_ZSHRC=yes CHSH=no RUNZSH=no sh -c "$(curl -fsSL "$OH_MY_ZSH_INSTALL_URL")" "" --unattended \
     || die "oh-my-zsh install failed"
+}
+
+homebrew_available() {
+  command -v brew >/dev/null 2>&1
+}
+
+install_homebrew() {
+  NONINTERACTIVE=1 /bin/bash -c "$(curl -fsSL "$HOMEBREW_INSTALL_URL")" \
+    || die "Homebrew install failed"
+}
+
+run_brew_bundle() {
+  brew bundle --file="$BREWFILE" || die "brew bundle failed"
+}
+
+install_homebrew_and_bundle() {
+  echo "==> Homebrew + Brewfile"
+
+  if homebrew_available; then
+    run_brew_bundle
+    return 0
+  fi
+
+  if ! id -Gn | grep -qw admin; then
+    warn "skipped — no admin rights, install Homebrew manually"
+    return 0
+  fi
+
+  install_homebrew
+  run_brew_bundle
 }
 
 apply_git_config_fixups() {
@@ -63,6 +99,7 @@ fix_zshrc_local_permissions() {
 main() {
   require_checkout
   install_oh_my_zsh
+  install_homebrew_and_bundle
   apply_git_config_fixups
   fix_zshrc_local_permissions
   echo "bootstrap.sh: done"
