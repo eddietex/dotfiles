@@ -67,5 +67,12 @@ require('lazy').setup({
   defaults = {
     lazy = false,
   },
+  -- luarocks/hererocks isn't set up on this machine; none of these plugins
+  -- need it, and leaving rocks enabled breaks require() for plugins that
+  -- ship a .rockspec (e.g. telescope.nvim resolves to a boolean instead of
+  -- its module table).
+  rocks = {
+    enabled = false,
+  },
   lockfile = vim.fn.stdpath('config') .. '/lazy-lock.json',
 })

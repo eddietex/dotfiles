@@ -17,5 +17,5 @@ vim.opt.background='dark'
 vim.opt.guifont='Menlo Regular:h15'
 
 require('keymap')
-require('telescope')
+require('telescope-keymaps')
 require('prettier')
