@@ -1,4 +1,5 @@
 brew "tmux"
 brew "neovim"
+brew "tree-sitter-cli"
 brew "diff-so-fancy"
 brew "herdr"
