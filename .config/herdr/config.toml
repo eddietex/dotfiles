@@ -3,6 +3,11 @@ onboarding = false
 [ui.toast]
 delivery = "system"
 
+[[keys.command]]
+key = "prefix+d"
+type = "plugin_action"
+command = "persiyanov.reviewr.toggle"   # <plugin_id>.<action_id> — note the id, not the name
+
 [keys]
 
 # navigation
