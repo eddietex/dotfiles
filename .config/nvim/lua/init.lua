@@ -2,10 +2,7 @@ vim.g.mapleader=' '
 
 require('plugins')
 
-vim.opt.tabstop=4
-vim.opt.shiftwidth=4
 vim.opt.scrolloff=8
-vim.opt.expandtab=true
 vim.opt.ruler=true
 vim.opt.number=true
 vim.opt.relativenumber=true
@@ -18,4 +15,5 @@ vim.opt.guifont='Menlo Regular:h15'
 
 require('keymap')
 require('telescope-keymaps')
+require('filetype-settings')
 require('prettier')
