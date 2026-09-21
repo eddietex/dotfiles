@@ -81,7 +81,7 @@ require('lazy').setup({
     },
     {
       'ThePrimeagen/harpoon',
-      keys = { '<leader>hw', '<leader>hh', '<leader>jj', '<leader>kk', '<leader>ll', '<leader>;;' },
+      lazy = false,
     },
     {
       'nvim-treesitter/nvim-treesitter',
